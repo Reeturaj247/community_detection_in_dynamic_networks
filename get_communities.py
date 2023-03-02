@@ -123,7 +123,7 @@ def get_communities(adj_list):
             if dct[d] > mx:
                 mx = dct[d]
                 ans = d 
-        return d
+        return ans
 
 
     unclassified = unclassafied_set(label)
