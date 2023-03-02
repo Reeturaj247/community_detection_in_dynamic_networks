@@ -103,7 +103,7 @@ def get_communities(adj_list):
         
         # Step 5: Insert community to CS
         if len(community) > 1:
-            CS[ll] = community
+            CS[ll-1] = community
             label[v] = ll
 
 
@@ -131,7 +131,7 @@ def get_communities(adj_list):
         ll = most_frequent_classified_neighbor_label(u)
         if ll != 0:
             label[u] = ll
-            CS[ll].append(u)
+            CS[ll-1].append(u)
 
 
 
@@ -143,7 +143,7 @@ def get_communities(adj_list):
         label[u] = ll
         new_community = []
         new_community.append(u)
-        CS[ll] = new_community
+        CS[ll-1] = new_community
 
         
     # Step 9: Return Community Structure
