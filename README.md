@@ -3,4 +3,4 @@
 ### Reeturaj Gogoi(Team Leader)
 ### Tinku Moni Kalita
 ### Sujoy Garg
-### Pawan Kumar Shingh
+### Pawan Kumar Singh
