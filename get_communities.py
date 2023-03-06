@@ -1,9 +1,8 @@
-def get_communities(adj_list):
+def get_communities(adj_list, label):
     total_nodes = len(adj_list)
     CS = {new_list: [] for new_list in range(total_nodes)}
 
     # Step 1: Initialize all nodes as unclassified
-    label = {}
     for i in range(total_nodes):
         if i == 0:
             label[i] = -1
@@ -39,14 +38,16 @@ def get_communities(adj_list):
         ll = max_unclassified_degree() + 1
         def max_degree_vertex_unclassified():
             mx = 0
-            v = 0
-            for l in label:
+            vertex = 1
+            for l in adj_list:
                 if label[l] == 0:
-                    length = len(adj_list[l])
-                    if mx < length:
-                        mx = length
-                        v = l  
-            return v
+                    cnt = 0
+                    for node in adj_list[l]:
+                        cnt += 1
+                    if mx < cnt:
+                        mx = cnt
+                        vertex = l  
+            return vertex
         v = max_degree_vertex_unclassified()
         community.append(v)
 
@@ -64,20 +65,20 @@ def get_communities(adj_list):
         seed = {}
         for u in adj_list[v]:
             if label[u] == 0:
-                cn = common_neighbour(u, v)
                 val = max(common_neighbour(u,v)/len(adj_list[u]), common_neighbour(u,v)/len(adj_list[v]))
                 seed[u] = val
         for s in seed:
-            if seed[s]:
+            if seed[s] != 0 and label[s] == 0:
                 label[s] = ll
                 community.append(s)
         
         # For classified neighbours of v
         for u in adj_list[v]:
-            if common_neighbour(u, v) >= len(adj_list[u])/2 or common_neighbour(u, v) >= len(adj_list[v])/2:
-                label[u] = ll 
-                if u not in community:
-                    community.append(u)
+            if label[u] == 0:
+                if common_neighbour(u, v) >= len(adj_list[u])/2 or common_neighbour(u, v) >= len(adj_list[v])/2:
+                    label[u] = ll 
+                    if u not in community:
+                        community.append(u)
 
         # Step 4: Expand community C by inserting nodes most of whose neighbours have been classified in C:
 
