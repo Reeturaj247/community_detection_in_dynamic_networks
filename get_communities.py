@@ -71,14 +71,16 @@ def get_communities(adj_list, label):
             if seed[s] != 0 and label[s] == 0:
                 label[s] = ll
                 community.append(s)
+        print(label)
         
         # For classified neighbours of v
         for u in adj_list[v]:
-            if label[u] == 0:
+            # if label[u] == 0:
                 if common_neighbour(u, v) >= len(adj_list[u])/2 or common_neighbour(u, v) >= len(adj_list[v])/2:
                     label[u] = ll 
                     if u not in community:
                         community.append(u)
+        # print(label)
 
         # Step 4: Expand community C by inserting nodes most of whose neighbours have been classified in C:
 

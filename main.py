@@ -13,7 +13,7 @@ adj_list = {}
 adj_list[0] = []
 path = os.path.realpath(__file__)
 dir = os.path.dirname(path)
-dir = dir.replace('sna_project', 'sna_project\datasets\case01.txt')
+dir = dir.replace('sna_project', 'sna_project\datasets\case01.csv')
 edge_file =  open(dir,'r')
 edge_list = edge_file.readlines()
 for edge in edge_list:
@@ -36,7 +36,7 @@ plt.show()
 # Step 1: Detect community structure from the first snapshot 
 label = {}
 CS = get_communities(adj_list, label)
-# print(CS)
+print(CS)
 CS = merge_communities(adj_list, label, 0.005)
 
 
@@ -70,6 +70,14 @@ for snapshot in range(2,5):
     adj_list = edge_addition(adj_list, label, prev_list, 0.5)
     # Handling edge removal
     adj_list = edge_removal(adj_list, label, prev_list, 1/3)
+
+    # Construct a subgraph of unclassified node
+    # print(adj_list)
+    unclassified_v = []
+    for node in adj_list:
+        if label[node] == 0:
+            v.append(node)
+    new_list = {}
 
 
     nx.draw(G, with_labels = True)
