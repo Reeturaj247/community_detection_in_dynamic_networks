@@ -35,7 +35,7 @@ def adjust_community_affiliations(G_prev, G_curr):
             G_curr.nodes[v]['community'] = G_curr.nodes[u]['community']
             
     return G_curr
-def node_addition(adj_list, label, prev_list):
+def edge_addition(adj_list, label, prev_list, delta):
     G_prev = AdjToNx(adj_list)
     G_curr = AdjToNx(prev_list)
     G_curr = adjust_community_affiliations(G_prev, G_curr)

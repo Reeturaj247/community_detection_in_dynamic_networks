@@ -1,5 +1,7 @@
 from convertGraph import AdjToNx
 from convertGraph import NxToAdj
+import networkx as nx
+import community 
 def expected_edges(node1, node2, degrees, m):
     return degrees[node1] * degrees[node2] / (2 * m)
 
@@ -37,11 +39,11 @@ import numpy as np
 
 def find_max_modularity_increment(G, CS):
     
-    Find the pair of communities with the largest modularity increment.
-    G: the graph as an adjacency matrix.
-    CS: the current community structure as a dictionary mapping node ids to community ids.
-    Returns a tuple (X, X', delta_Q) where X and X' are the communities with the largest modularity increment,
-    and delta_Q is the modularity increment when merging X and X'.
+    # Find the pair of communities with the largest modularity increment.
+    # G: the graph as an adjacency matrix.
+    # CS: the current community structure as a dictionary mapping node ids to community ids.
+    # Returns a tuple (X, X', delta_Q) where X and X' are the communities with the largest modularity increment,
+    # and delta_Q is the modularity increment when merging X and X'.
 
     n = G.shape[0]  # number of nodes
     m = G.sum() / 2  # number of edges
@@ -117,8 +119,7 @@ def merge_communities(G, k):
 
     return G
     return mod
-def merge_communities(adj_list, label, delta):
+def merge_communities(al, label, delta):
     adj_list = AdjToNx(al)
-    prev_list = AdjToNx(pl)
 
     return NxToAdj(adj_list)

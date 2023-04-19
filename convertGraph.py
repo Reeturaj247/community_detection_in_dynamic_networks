@@ -1,3 +1,4 @@
+import networkx as nx
 # adj_list to networkx Graph
 def AdjToNx(adj_list):
     G = nx.Graph()
@@ -12,5 +13,5 @@ def AdjToNx(adj_list):
 def NxToAdj(G):
     adj_list = {}
     for node in G.nodes():
-    adj_list[node] = list(G.neighbors(node))
+        adj_list[node] = list(G.neighbors(node))
     return adj_list

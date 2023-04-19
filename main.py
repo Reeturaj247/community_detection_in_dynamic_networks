@@ -13,7 +13,7 @@ adj_list = {}
 adj_list[0] = []
 path = os.path.realpath(__file__)
 dir = os.path.dirname(path)
-dir = dir.replace('sna_project', 'sna_project\datasets\case01.csv')
+dir = dir.replace('sna_project', 'sna_project\datasets\code05.csv')
 edge_file =  open(dir,'r')
 edge_list = edge_file.readlines()
 for edge in edge_list:
@@ -37,48 +37,48 @@ plt.show()
 label = {}
 CS = get_communities(adj_list, label)
 print(CS)
-CS = merge_communities(adj_list, label, 0.005)
+# CS = merge_communities(adj_list, label, 0.005)
 
 
-# Step 2: Detect community structure from every snapshot incrementally on the basis of previous snapshot 
-for snapshot in range(2,5):
-    prev_list = adj_list
-    dir = dir.replace(str(snapshot-1), str(snapshot))
-    adj_list = {}
-    adj_list[0] = []
-    edge_file =  open(dir,'r')
-    edge_list = edge_file.readlines()
-    for edge in edge_list:
-        edge = edge.split()
-        G.add_node(int(edge[0]))
-        G.add_node(int(edge[1]))
-        G.add_edge(int(edge[0]), int(edge[1]))
-        if int(edge[0]) not in adj_list:
-            adj_list[int(edge[0])] = []
-        if int(edge[1]) not in adj_list:
-            adj_list[int(edge[1])] = []
-        adj_list[int(edge[0])].append(int(edge[1]))
-        adj_list[int(edge[1])].append(int(edge[0]))
-    G = G.to_undirected()
-    # label = {}
-    # CS = get_communities(adj_list, label)
-    # print(CS)
+# # Step 2: Detect community structure from every snapshot incrementally on the basis of previous snapshot 
+# for snapshot in range(2,5):
+#     prev_list = adj_list
+#     dir = dir.replace(str(snapshot-1), str(snapshot))
+#     adj_list = {}
+#     adj_list[0] = []
+#     edge_file =  open(dir,'r')
+#     edge_list = edge_file.readlines()
+#     for edge in edge_list:
+#         edge = edge.split()
+#         G.add_node(int(edge[0]))
+#         G.add_node(int(edge[1]))
+#         G.add_edge(int(edge[0]), int(edge[1]))
+#         if int(edge[0]) not in adj_list:
+#             adj_list[int(edge[0])] = []
+#         if int(edge[1]) not in adj_list:
+#             adj_list[int(edge[1])] = []
+#         adj_list[int(edge[0])].append(int(edge[1]))
+#         adj_list[int(edge[1])].append(int(edge[0]))
+#     G = G.to_undirected()
+#     # label = {}
+#     # CS = get_communities(adj_list, label)
+#     # print(CS)
 
-    # Handling node addition
-    adj_list = node_addition(adj_list, label, prev_list)
-    # Handling edge addition
-    adj_list = edge_addition(adj_list, label, prev_list, 0.5)
-    # Handling edge removal
-    adj_list = edge_removal(adj_list, label, prev_list, 1/3)
+#     # Handling node addition
+#     adj_list = node_addition(adj_list, label, prev_list)
+#     # Handling edge addition
+#     adj_list = edge_addition(adj_list, label, prev_list, 0.5)
+#     # Handling edge removal
+#     adj_list = edge_removal(adj_list, label, prev_list, 1/3)
 
-    # Construct a subgraph of unclassified node
-    # print(adj_list)
-    unclassified_v = []
-    for node in adj_list:
-        if label[node] == 0:
-            v.append(node)
-    new_list = {}
+#     # Construct a subgraph of unclassified node
+#     # print(adj_list)
+#     unclassified_v = []
+#     for node in adj_list:
+#         if label[node] == 0:
+#             v.append(node)
+#     new_list = {}
 
 
-    nx.draw(G, with_labels = True)
-    plt.show()
+#     nx.draw(G, with_labels = True)
+#     plt.show()
