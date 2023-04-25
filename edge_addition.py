@@ -3,7 +3,7 @@ from convertGraph import NxToAdj
 def adjust_community_affiliations(G_prev, G_curr):
     # Collect newly added edges
     new_edges = set(G_curr.edges()) - set(G_prev.edges())
-
+    return G_curr
     for (u, v) in new_edges:
         # Check if u and v are in the same community
         if G_curr.nodes[u]['community'] == G_curr.nodes[v]['community']:

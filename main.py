@@ -6,6 +6,8 @@ from merge_communities import merge_communities
 from node_addition import node_addition
 from edge_addition import edge_addition
 from edge_removal import edge_removal
+from measures import calculate_measures
+from convertGraph import AdjToNx
 
 
 G = nx.Graph()
@@ -13,7 +15,7 @@ adj_list = {}
 adj_list[0] = []
 path = os.path.realpath(__file__)
 dir = os.path.dirname(path)
-dir = dir.replace('sna_project', 'sna_project\datasets\code05.csv')
+dir = dir.replace('sna_project', 'sna_project\datasets\case01.txt')
 edge_file =  open(dir,'r')
 edge_list = edge_file.readlines()
 for edge in edge_list:
@@ -31,16 +33,17 @@ G = G.to_undirected()
 nx.draw(G, with_labels = True)
 plt.show()
 
-
+print(adj_list)
 # Algorithm
 # Step 1: Detect community structure from the first snapshot 
 label = {}
 CS = get_communities(adj_list, label)
 print(CS)
-# CS = merge_communities(adj_list, label, 0.005)
+calculate_measures(adj_list, CS)
+CS = merge_communities(adj_list, label, 0.005)
 
 
-# # Step 2: Detect community structure from every snapshot incrementally on the basis of previous snapshot 
+# Step 2: Detect community structure from every snapshot incrementally on the basis of previous snapshot 
 # for snapshot in range(2,5):
 #     prev_list = adj_list
 #     dir = dir.replace(str(snapshot-1), str(snapshot))
@@ -60,9 +63,10 @@ print(CS)
 #         adj_list[int(edge[0])].append(int(edge[1]))
 #         adj_list[int(edge[1])].append(int(edge[0]))
 #     G = G.to_undirected()
-#     # label = {}
-#     # CS = get_communities(adj_list, label)
-#     # print(CS)
+#     label = {}
+#     CS = get_communities(adj_list, label)
+#     print(CS)
+#     calculate_measures(adj_list, CS)
 
 #     # Handling node addition
 #     adj_list = node_addition(adj_list, label, prev_list)
@@ -70,14 +74,6 @@ print(CS)
 #     adj_list = edge_addition(adj_list, label, prev_list, 0.5)
 #     # Handling edge removal
 #     adj_list = edge_removal(adj_list, label, prev_list, 1/3)
-
-#     # Construct a subgraph of unclassified node
-#     # print(adj_list)
-#     unclassified_v = []
-#     for node in adj_list:
-#         if label[node] == 0:
-#             v.append(node)
-#     new_list = {}
 
 
 #     nx.draw(G, with_labels = True)

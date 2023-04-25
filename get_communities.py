@@ -2,6 +2,7 @@ def get_communities(adj_list, label):
     total_nodes = len(adj_list)
     CS = {new_list: [] for new_list in range(total_nodes)}
 
+
     # Step 1: Initialize all nodes as unclassified
     for i in range(total_nodes):
         if i == 0:
@@ -75,7 +76,7 @@ def get_communities(adj_list, label):
         
         # For classified neighbours of v
         for u in adj_list[v]:
-            # if label[u] == 0:
+            if label[u] == 0:
                 if common_neighbour(u, v) >= len(adj_list[u])/2 or common_neighbour(u, v) >= len(adj_list[v])/2:
                     label[u] = ll 
                     if u not in community:
