@@ -1,4 +1,5 @@
-# pseudocode for similar algorithm 
+# pseudocode for new algorithm 
+
 sameComm = []
 diffComm = []
 
