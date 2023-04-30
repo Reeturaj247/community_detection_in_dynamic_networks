@@ -37,7 +37,7 @@ for edge in edge_list:
     adj_list[int(edge[0])].append(int(edge[1]))
     adj_list[int(edge[1])].append(int(edge[0]))
 G = G.to_undirected()
-nx.draw(G, with_labels = True)
+nx.draw(G, with_labels = False)
 plt.show()
 
 # print(adj_list)
@@ -92,5 +92,5 @@ for snapshot in range(1,5):
     adj_list = edge_removal(adj_list, label, prev_list, 1/3)
 
 
-    nx.draw(G, with_labels = True)
+    nx.draw(G, with_labels = False)
     plt.show()

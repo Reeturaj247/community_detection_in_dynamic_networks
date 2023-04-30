@@ -34,7 +34,6 @@ G = LFR_benchmark_graph(
 # Algorithm
 # Step 1: Detect community structure from the first snapshot 
 label = {}
-initial_node = 250
 # CS = get_communities(adj_list, label)
 communities_generator = nx.community.girvan_newman(G)
 top_level_communities = next(communities_generator)
@@ -42,22 +41,21 @@ CS = next(communities_generator)
 print(CS)
 calculate_measures_NX(G, CS)
 adj_list = {}
-final_node = 250
 CSS = merge_communities(adj_list, label, 0.005)
 
 
 # Step 2: Detect community structure from every snapshot incrementally on the basis of previous snapshot 
-for snapshot in range(2,5):
+for snapshot in range(1):
     prev_list = adj_list
 
-    n = random.randint(initial_node,final_node)
+    n = 1000
     tau1 = 3
     tau2 = 1.5
     mu = 0.1
     G = LFR_benchmark_graph(
-        n, tau1, tau2, mu, average_degree=5, min_community=20, seed=10
+        n, tau1, tau2, mu, average_degree=10, min_community=10, seed=10
     )
-    nx.draw(G, with_labels = True)
+    nx.draw(G, with_labels = False)
     plt.show()
 
 
