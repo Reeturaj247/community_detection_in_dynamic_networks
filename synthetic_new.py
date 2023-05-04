@@ -1,4 +1,3 @@
-import random
 import networkx as nx
 from networkx.generators.community import LFR_benchmark_graph
 import matplotlib.pyplot as plt
@@ -11,47 +10,17 @@ from edge_removal import edge_removal
 from measuresNx import calculate_measures_NX
 from convertGraph import AdjToNx
 from convertGraph import NxToAdj
+from lfr import lfr
 
 
-# n = random.randint(50,70)
-# tau1 = 3
-# tau2 = 1.5
-# mu = 0.1
-# G = LFR_benchmark_graph(
-#     n, tau1, tau2, mu, average_degree=5, min_community=10, seed=10
-# )
-# nx.draw(G, with_labels = True)
-# plt.show()
-n = 250
-tau1 = 3
-tau2 = 1.5
-mu = 0.1
-G = LFR_benchmark_graph(
-    n, tau1, tau2, mu, average_degree=5, min_community=20, seed=10
-)
-
-
-# Algorithm
-# Step 1: Detect community structure from the first snapshot 
-label = {}
-CS = get_communities(adj_list, label)
-print(CS)
-calculate_measures_NX(G, CS)
 adj_list = {}
-CSS = merge_communities(adj_list, label, 0.005)
-
+GG = lfr()
 
 # Step 2: Detect community structure from every snapshot incrementally on the basis of previous snapshot 
-for snapshot in range(1):
+for snapshot in range(4):
     prev_list = adj_list
 
-    n = 1000
-    tau1 = 3
-    tau2 = 1.5
-    mu = 0.1
-    G = LFR_benchmark_graph(
-        n, tau1, tau2, mu, average_degree=10, min_community=10, seed=10
-    )
+    G = GG[snapshot]
     nx.draw(G, with_labels = False)
     plt.show()
 
@@ -59,7 +28,10 @@ for snapshot in range(1):
     # Algorithm
     # Step 1: Detect community structure from the first snapshot 
     label = {}
-    CS = get_communities(adj_list, label)
+    # CS = get_communities(adj_list, label)
+    communities_generator = nx.community.girvan_newman(G)
+    top_level_communities = next(communities_generator)
+    CS = next(communities_generator)
     print(CS)
     calculate_measures_NX(G, CS)
     adj_list = {}

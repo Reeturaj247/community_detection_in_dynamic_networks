@@ -44,10 +44,7 @@ plt.show()
 # Algorithm
 # Step 1: Detect community structure from the first snapshot 
 label = {}
-# CS = get_communities(adj_list, label)
-communities_generator = nx.community.girvan_newman(G)
-top_level_communities = next(communities_generator)
-CS = next(communities_generator)
+CS = get_communities(adj_list, label)
 print(CS)
 calculate_measures_real(G, CS)
 CS = merge_communities(adj_list, label, 0.005)
@@ -77,10 +74,7 @@ for snapshot in range(1,5):
         adj_list[int(edge[1])].append(int(edge[0]))
     G = G.to_undirected()
     label = {}
-    # CS = get_communities(adj_list, label)
-    communities_generator = nx.community.girvan_newman(G)
-    top_level_communities = next(communities_generator)
-    CS = next(communities_generator)
+    CS = get_communities(adj_list, label)
     print(CS)
     calculate_measures_real(G, CS)
 

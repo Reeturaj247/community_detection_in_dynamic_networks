@@ -1,5 +1,7 @@
 def get_community(adj_list, label):
-    CS = {new_list: [] for new_list in range(len(adj_list))}
+    for node in adj_list:
+        label[node] = 0
+    CS = {}
     def u_set(adj_list, label):
         unclassified_set = []
         for v in adj_list:
@@ -41,10 +43,13 @@ def get_community(adj_list, label):
             freq = {}
             mx = 0
             for l in label:
-                freq[label[l]] += 1
-            for f in freq.values:
-                if f > mx:
-                    mx = f
+                if label[l] not in freq:
+                    freq[label[l]] = 1
+                else:
+                    freq[label[l]] += 1
+            for f in freq:
+                if freq[f] > mx:
+                    mx = freq[f]
             return mx
         mfl = max_freq_label(adj_list, label)
 
@@ -58,7 +63,7 @@ def get_community(adj_list, label):
 
         sameComm = []
 
-        if isChanged == u_set(adj_list):
+        if isChanged == u_set(adj_list, label):
             break
     
     # assign the remaining nodes label to max occurence of neighbors label
@@ -68,14 +73,17 @@ def get_community(adj_list, label):
         mx = 0
         mxL = 0
         for nn in adj_list[u]:
-            freq[label[nn]] += 1
+            if label[nn] not in freq:
+                freq[label[nn]] = 1
+            else:
+                freq[label[nn]] += 1
         for f in freq:
             if mx < freq[f]:
                 mx = freq[f]
                 mxL = f
         return mxL
         
-    remaining_nodes = u_set(adj_list)
+    remaining_nodes = u_set(adj_list, label)
     for rn in remaining_nodes:
         mfn = max_freq_neighb_label(rn, adj_list, label)
         if mfn == 0:
@@ -84,7 +92,10 @@ def get_community(adj_list, label):
     
 
     # Return the final community structure
+    print(label)
     for l in label:
-        CS[label[l]].append()
+        if label[l] not in CS:
+            CS[label[l]] = []
+        CS[label[l]].append(l+1)
     return CS
     

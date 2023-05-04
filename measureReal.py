@@ -2,7 +2,6 @@ import networkx as nx
 from convertGraph import AdjToNx
 from sklearn import metrics
 import community
-import random 
 from sklearn.metrics.cluster import normalized_mutual_info_score
 
 
@@ -105,7 +104,6 @@ def calculate_ari(graph, communities):
             i += 1
     # calculate the Adjusted Rand Index (ARI) score
     ari_score = metrics.adjusted_rand_score(true_labels, predicted_labels)
-    ari_score -= round(random.uniform(0.55, 0.65), 17)
 
     return ari_score
 
@@ -142,7 +140,6 @@ def calculate_nmi(graph, communities):
             i += 1
     # calculate the Adjusted Rand Index (ARI) score
     nmi_score = metrics.normalized_mutual_info_score(true_labels, predicted_labels)
-    nmi_score -= round(random.uniform(0.55, 0.65), 17)
 
     return nmi_score
 
